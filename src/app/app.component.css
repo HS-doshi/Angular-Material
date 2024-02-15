@@ -25,4 +25,17 @@ mat-grid-tile
 {
   background-color:blue;
 }
-
+table{
+  width:100%;
+}
+.number{
+  display : flex;
+  justify-content: center;
+  align-items: center;
+  border : 1px solid black;
+  border-shadow: border-box;
+  height: 100px;
+}
+.container{
+  height: 400px;
+}
