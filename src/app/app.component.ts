@@ -25,6 +25,9 @@ import {MatCheckboxModule} from '@angular/material/checkbox'
 import {MatRadioModule} from '@angular/material/radio'
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatDatepickerModule} from '@angular/material/datepicker'
+import {MatTooltipModule} from '@angular/material/tooltip'
+import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar'
+import { Action } from 'rxjs/internal/scheduler/Action';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -54,7 +57,9 @@ import {MatDatepickerModule} from '@angular/material/datepicker'
     MatCheckboxModule,
     MatRadioModule,
     MatNativeDateModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatTooltipModule,
+    MatSnackBarModule
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
@@ -108,5 +113,18 @@ export class AppComponent implements OnInit {
   dateFilter = (date: any) =>{
     const dat = date.getDay();
     return dat != 0 && dat != 6;
+  }
+
+  constructor(private snackBar : MatSnackBar){}
+
+  openSnackBar(message:string , action : any) {
+    let snackBarRef =  this.snackBar.open(message, action);
+
+    snackBarRef.afterDismissed().subscribe(()=>{
+      console.log('The Snackbar was dismissed!')
+    });
+    snackBarRef.onAction().subscribe(()=>{
+      console.log('The snackbar was trigeered!')
+    })
   }
 }
