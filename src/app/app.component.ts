@@ -28,9 +28,13 @@ import {MatDatepickerModule} from '@angular/material/datepicker'
 import {MatTooltipModule} from '@angular/material/tooltip'
 import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar'
 import { Action } from 'rxjs/internal/scheduler/Action';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { DialogExampleComponent } from './dialog-example/dialog-example.component';
+
 @Component({
   selector: 'app-root',
   standalone: true,
+  // entryComponents : [CustomSnackBarComponent],
   imports: [
     RouterOutlet ,
     CommonModule ,
@@ -59,10 +63,12 @@ import { Action } from 'rxjs/internal/scheduler/Action';
     MatNativeDateModule,
     MatDatepickerModule,
     MatTooltipModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatDialogModule,
+
   ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit {
   title = 'Material';
@@ -115,16 +121,34 @@ export class AppComponent implements OnInit {
     return dat != 0 && dat != 6;
   }
 
-  constructor(private snackBar : MatSnackBar){}
+  constructor(private snackBar : MatSnackBar,
+    public dialog : MatDialog ){}
 
   openSnackBar(message:string , action : any) {
-    let snackBarRef =  this.snackBar.open(message, action);
+    let snackBarRef =  this.snackBar.open(message, action,{duration:2000});
 
     snackBarRef.afterDismissed().subscribe(()=>{
       console.log('The Snackbar was dismissed!')
     });
+
+    // on action is an observable.
     snackBarRef.onAction().subscribe(()=>{
       console.log('The snackbar was trigeered!')
-    })
+    });
+  }
+  onShowSnackbar(){
+    this.snackBar.openFromComponent(CustomSnackBarComponent , {duration : 2000})
+    console.log('Custom component rendered!')
+  }
+  openDialog(){
+    let dialogRef =  this.dialog.open(DialogExampleComponent);
+    dialogRef.afterClosed().subscribe(result=>{
+      console.log(`Dialog Result : ${result}`)
+    });
   }
 }
+@Component({
+  selector: 'custom-snackbar',
+  template: '<span style="color: orange;">Custom Snackbar</span>'
+})
+export class CustomSnackBarComponent{}

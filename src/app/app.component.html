@@ -58,10 +58,10 @@
   </ng-template>
 </mat-menu>
 <button  [matMenuTriggerFor]="lazyMenu" mat-raised-button>Click Me</button>
-<mat-list dense>
+<!-- <mat-list dense>
   <mat-list-item>Item 1</mat-list-item>
   <mat-list-item>Item 2</mat-list-item>
-</mat-list>
+</mat-list> -->
 
 <!-- <mat-list>
   <mat-list-item>
@@ -169,7 +169,7 @@
         </mat-autocomplete>
       </mat-form-field>
     </form>
-    <mat-checkbox>
+    <!-- <mat-checkbox>
         Subscribe
     </mat-checkbox>
     <mat-checkbox labelPosition="before">
@@ -180,7 +180,7 @@
     </mat-checkbox>
     <mat-checkbox labelPosition="before" color="warn">
       Subscribe
-    </mat-checkbox>
+    </mat-checkbox> -->
 <mat-radio-group >
   <mat-radio-button value="angular">Angular</mat-radio-button>
   <mat-radio-button value="react">React</mat-radio-button>
@@ -196,6 +196,8 @@
 <!-- matooltip work as a hover property! -->
 <button mat-raised-button  matTooltip="Welcome to the Wellnest!" matTooltipPosition="after" matTooltipShowDelay="1500">Hello</button>
 
-<button mat-button (click)="openSnackBar('Item deleted', 'Undo')">
+<button mat-button (click)="openSnackBar('Item deleted', 'undo')">
   Delete
 </button>
+<button mat-button (click)="onShowSnackbar()">Show Custom Snackbar</button>
+<button mar-raised-button (click)="openDialog()">Open Dialog</button>
